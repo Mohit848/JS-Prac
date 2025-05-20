@@ -15,14 +15,27 @@ const Calculator = {
 			: numbers;
 		const numbersArray = numbersString
 			.split("\n")
-			.join("")
+			.join(delimitter)
 			.split(delimitter);
 		const negativeNumbers = numbersArray.filter(
 			(number) => Number(number) < 0
 		);
+		if (negativeNumbers.length > 0) {
+			throw new Error(
+				`negative numbers not allowed ${negativeNumbers.join(",")}`
+			);
+		}
+		const numbersToSum = numbersArray.map((number) => Number(number));
+		const sum = numbersToSum.reduce((acc, number) => {
+			if (number > 1000) {
+				return acc;
+			}
+			return acc + number;
+		});
+		return sum;
 	},
 };
-
+module.exports = Calculator;
 /*
 	Work Plan:
 	will store numbers in an array
