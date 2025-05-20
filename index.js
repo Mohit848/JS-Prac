@@ -7,6 +7,19 @@ const Calculator = {
 		if (numbers === "") {
 			return 0;
 		}
+		const delimitter = numbers.startsWith("//")
+			? numbers.split("\n")[0].slice(2)
+			: ",";
+		const numbersString = numbers.startsWith("//")
+			? numbers.split("\n")[1]
+			: numbers;
+		const numbersArray = numbersString
+			.split("\n")
+			.join("")
+			.split(delimitter);
+		const negativeNumbers = numbersArray.filter(
+			(number) => Number(number) < 0
+		);
 	},
 };
 
