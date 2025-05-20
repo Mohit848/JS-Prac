@@ -7,6 +7,11 @@ const Calculator = {
 		if (numbers === "") {
 			return 0;
 		}
+		//handle invalid delimiter format e.g. "//;1,2,3"
+		if (numbers.startsWith("//") && !numbers.includes("\n")) {
+			throw new Error("Invalid input");
+		}
+
 		const delimitter = numbers.startsWith("//")
 			? numbers.split("\n")[0].slice(2)
 			: ",";
@@ -26,6 +31,10 @@ const Calculator = {
 			);
 		}
 		const numbersToSum = numbersArray.map((number) => Number(number));
+		//Handling NaN case
+		if (numbersToSum.some((number) => isNaN(number))) {
+			throw new Error("Invalid input");
+		}
 		const sum = numbersToSum.reduce((acc, number) => {
 			if (number > 1000) {
 				return acc;
